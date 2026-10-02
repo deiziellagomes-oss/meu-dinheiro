@@ -47,9 +47,9 @@ img{max-width:100%}
   --bear:#C98E63; --bear-in:#F6DCC4; --blush:#FF9FB2; --sticker:#4A363C; --c-fixa:#D9607E; --c-cartao:#9A72DC;
   --shadow:0 3px 0 rgba(0,0,0,.35),0 8px 18px rgba(0,0,0,.25); color-scheme:dark}
 /* Temas de cor (Personalizar) */
-:root[data-tema="lilas"]{--bg:#E3D7FB;--dots:#D5C5F7;--accent:#7C4DDB;--accent-soft:#F1EAFE}
-:root[data-tema="menta"]{--bg:#CDEFE0;--dots:#B8E6D2;--accent:#1F8A62;--accent-soft:#E3F6EE}
-:root[data-tema="ceu"]{--bg:#CFE4FA;--dots:#BCD8F7;--accent:#2F6FC4;--accent-soft:#E4F0FD}
+:root[data-tema="lilas"]{--line:#E6DCF7;--bg:#E3D7FB;--dots:#D5C5F7;--accent:#7C4DDB;--accent-soft:#F1EAFE}
+:root[data-tema="menta"]{--line:#CFE7DC;--bg:#CDEFE0;--dots:#B8E6D2;--accent:#1F8A62;--accent-soft:#E3F6EE}
+:root[data-tema="ceu"]{--line:#D3E3F4;--bg:#CFE4FA;--dots:#BCD8F7;--accent:#2F6FC4;--accent-soft:#E4F0FD}
 :root[data-tema="areia"]{--bg:#EFE6DA;--dots:#E5D8C7;--accent:#A0603F;--accent-soft:#F7EFE6}
 @media (prefers-color-scheme:dark){
   :root[data-tema="lilas"]:not([data-theme="light"]){--bg:#231D2E;--dots:#2C2539;--surface:#2F2840;--sticker:#3D3452;--line:#463C5C;--accent:#B79CFF;--accent-soft:#3A3050}
@@ -352,7 +352,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
     <section class="panel husband-panel" id="maridoPanel" hidden>
       <div class="panel-head"><h2>Recebi uma ajuda</h2></div>
       <form class="inline" id="formMarido" style="margin-top:0">
-        <label style="grid-column:1/-1">De quem veio<select id="mQuem"><option value="esposo">Esposo</option><option value="namorado">Namorado</option><option value="noivo">Noivo</option><option value="pai">Pai</option><option value="outra">Outra renda</option></select></label>
+        <label style="grid-column:1/-1">De quem veio<select id="mQuem"><option value="esposo">Esposo</option><option value="esposa">Esposa</option><option value="namorado">Namorado</option><option value="namorada">Namorada</option><option value="noivo">Noivo</option><option value="noiva">Noiva</option><option value="pai">Pai</option><option value="mae">Mãe</option><option value="familia">Família</option><option value="outra">Outra renda</option></select></label>
         <label>Quanto recebeu<input id="mValor" inputmode="decimal" required placeholder="500,00"></label>
         <label>Para qual mês<select id="mMes"></select></label>
         <label style="grid-column:1/-1">Recadinho (opcional)<input id="mNota" placeholder="Pra pagar a fatura do Nubank"></label>
@@ -494,14 +494,13 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
         <label class="full">Nome do app<input id="pNome" maxlength="24" placeholder="Meu Dinheiro"></label>
         <div class="full"><div class="label" style="margin-bottom:6px">Cor do app</div>
           <div class="swatches" id="pTemas">
-            <button type="button" class="swatch" data-tema="rosa" aria-label="Rosa" style="background:#F2718F"></button>
-            <button type="button" class="swatch" data-tema="lilas" aria-label="Lilás" style="background:#7C4DDB"></button>
-            <button type="button" class="swatch" data-tema="menta" aria-label="Verde menta" style="background:#1F8A62"></button>
+            <button type="button" class="swatch" data-tema="menta" aria-label="Verde" style="background:#1F8A62"></button>
             <button type="button" class="swatch" data-tema="ceu" aria-label="Azul" style="background:#2F6FC4"></button>
-            <button type="button" class="swatch" data-tema="areia" aria-label="Areia" style="background:#A0603F"></button>
+            <button type="button" class="swatch" data-tema="lilas" aria-label="Lilás" style="background:#7C4DDB"></button>
+            <button type="button" class="swatch" data-tema="rosa" aria-label="Rosa" style="background:#F2718F"></button>
           </div></div>
         <label>Mascote<select id="pUrso"><option value="1">Ursinho</option><option value="0">Sem mascote</option></select></label>
-        <label>Quem costuma te ajudar<select id="pQuem"><option value="esposo">Esposo</option><option value="namorado">Namorado</option><option value="noivo">Noivo</option><option value="pai">Pai</option><option value="outra">Outra renda</option></select></label>
+        <label>Quem costuma te ajudar<select id="pQuem"><option value="esposo">Esposo</option><option value="esposa">Esposa</option><option value="namorado">Namorado</option><option value="namorada">Namorada</option><option value="noivo">Noivo</option><option value="noiva">Noiva</option><option value="pai">Pai</option><option value="mae">Mãe</option><option value="familia">Família</option><option value="outra">Outra renda</option></select></label>
       </div>
     </section>
     <section class="panel">
@@ -525,13 +524,20 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
 <div class="gate" id="gate" hidden>
   <div class="gate-card">
     <div class="light" id="gateBear" aria-hidden="true"></div>
-    <h2>Bem-vinda ao Meu Dinheiro!</h2>
+    <h2>Boas-vindas ao Meu Dinheiro!</h2>
     <p>Digite o código de ativação que você recebeu na compra.</p>
     <form id="gateForm">
       <input id="gateCode" autocomplete="off" autocapitalize="characters" placeholder="MD-XXXX-XXXX" aria-label="Código de ativação" required>
       <button class="primary" type="submit">Ativar</button>
     </form>
     <div class="gate-msg" id="gateMsg" aria-live="polite"></div>
+    <div style="width:100%"><div class="label" style="margin-bottom:8px">Escolha a cor do seu app</div>
+      <div class="swatches" id="gateTemas" style="justify-content:center">
+        <button type="button" class="swatch" data-tema="menta" aria-label="Verde" style="background:#1F8A62"></button>
+        <button type="button" class="swatch" data-tema="ceu" aria-label="Azul" style="background:#2F6FC4"></button>
+        <button type="button" class="swatch" data-tema="lilas" aria-label="Lilás" style="background:#7C4DDB"></button>
+        <button type="button" class="swatch" data-tema="rosa" aria-label="Rosa" style="background:#F2718F"></button>
+      </div></div>
     <p class="small muted">Ainda não tem o seu? <a href="conheca.html">Conheça e compre aqui</a></p>
   </div>
 </div>
@@ -577,15 +583,19 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
 
   // ---------- Personalizar (fica salvo só neste celular) ----------
   const VIS = {nome:'Meu Dinheiro', tema:'rosa', urso:true, quem:'esposo'};
-  try{ Object.assign(VIS, JSON.parse(localStorage.getItem('md-visual')||'{}')); }catch(e){}
-  const TEMA_COR={rosa:'#FFD1D8',lilas:'#E3D7FB',menta:'#CDEFE0',ceu:'#CFE4FA',areia:'#EFE6DA'};
+  try{
+    const sv=localStorage.getItem('md-visual');
+    if(sv) Object.assign(VIS, JSON.parse(sv));
+    else { VIS.tema = localStorage.getItem('md-ativo')==='1' || localStorage.getItem('meu-dinheiro-dados-v1') ? 'rosa' : 'menta'; localStorage.setItem('md-visual', JSON.stringify(VIS)); }
+  }catch(e){}
+  const TEMA_COR={rosa:'#FFD1D8',lilas:'#E3D7FB',menta:'#CDEFE0',ceu:'#CFE4FA'};
   function applyVis(){
     const nome=(VIS.nome||'').trim()||'Meu Dinheiro';
     document.querySelector('header h1').textContent=nome; document.title=nome;
-    const g=document.querySelector('.gate-card h2'); if(g) g.textContent='Bem-vinda ao '+nome+'!';
+    const g=document.querySelector('.gate-card h2'); if(g) g.textContent='Boas-vindas ao '+nome+'!';
     if(VIS.tema && VIS.tema!=='rosa') document.documentElement.dataset.tema=VIS.tema; else delete document.documentElement.dataset.tema;
     const mt=document.querySelector('meta[name="theme-color"]'); if(mt) mt.content=TEMA_COR[VIS.tema]||TEMA_COR.rosa;
-    document.querySelectorAll('#pTemas [data-tema]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.tema===(VIS.tema||'rosa')));
+    document.querySelectorAll('#pTemas [data-tema], #gateTemas [data-tema]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.tema===(VIS.tema||'rosa')));
     if(document.activeElement!==$('pNome')) $('pNome').value = VIS.nome==='Meu Dinheiro'?'':(VIS.nome||'');
     $('pUrso').value=VIS.urso?'1':'0'; $('pQuem').value=VIS.quem||'esposo';
   }
@@ -636,9 +646,10 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
 
   // ---------- Cálculos ----------
   function fat(c,m){ if(c.faturas && c.faturas[m]!=null) return Number(c.faturas[m])||0; if(!c.faturas && m===BASE) return Number(c.fatura)||0; return 0; }
-  const QUEM={esposo:'Esposo',namorado:'Namorado',noivo:'Noivo',pai:'Pai',outra:'Outra renda'};
+  const QUEM={esposo:'Esposo',esposa:'Esposa',namorado:'Namorado',namorada:'Namorada',noivo:'Noivo',noiva:'Noiva',pai:'Pai',mae:'Mãe',familia:'Família',outra:'Outra renda'};
+  const FEM={esposa:1,namorada:1,noiva:1,mae:1,familia:1};
   const quemDe=a=>QUEM[a.quem]?a.quem:'esposo';
-  const ajLabel=a=>{const q=quemDe(a); return q==='outra'?'Outra renda':'Ajuda do '+QUEM[q].toLowerCase();};
+  const ajLabel=a=>{const q=quemDe(a); return q==='outra'?'Outra renda':'Ajuda '+(FEM[q]?'da ':'do ')+QUEM[q].toLowerCase();};
   function ajudasDe(m){ return state.ajudas.filter(a=>a.mes===m); }
   function totals(m){
     const salario=(state.cfg.salario||0)+(state.cfg.extras||0);
@@ -723,7 +734,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
       $('freeValue').innerHTML = '<small>'+(t.sobra<0?'Faltam':'Passou da reserva em')+'</small>'+fmt(t.sobra<0?-t.sobra:-t.livre);
     } else if(salvo){
       const qs=[...new Set(ajudasDe(sel).map(quemDe))];
-      $('statusTitle').textContent = qs.length===1 && qs[0]!=='outra' ? 'Salva pelo '+QUEM[qs[0]].toLowerCase()+'!' : 'Salva pela ajuda!';
+      $('statusTitle').textContent = qs.length===1 && qs[0]!=='outra' ? (FEM[qs[0]]?'A ':'O ')+QUEM[qs[0]].toLowerCase()+' salvou o mês!' : 'A ajuda salvou o mês!';
       $('statusText').textContent=`O salário não dava, mas com ${qs.length===1&&qs[0]==='outra'?'a outra renda':'a ajuda'} (${fmt(t.ajuda)}) as contas de ${mName(sel)} fecham.`;
       $('freeValue').innerHTML = '<small>Ainda livre</small>'+fmt(t.livre);
     } else if(lv==='warn'){
@@ -1014,6 +1025,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
     first.scrollIntoView({block:'start'}); setTimeout(()=>f.querySelector('input').focus({preventScroll:true}),50);
   };
   $('pNome').addEventListener('input',()=>{ VIS.nome=$('pNome').value.trim()||'Meu Dinheiro'; saveVis(); });
+  $('gateTemas').addEventListener('click',e=>{ const b=e.target.closest('[data-tema]'); if(b){ VIS.tema=b.dataset.tema; saveVis(); } });
   $('pTemas').addEventListener('click',e=>{ const b=e.target.closest('[data-tema]'); if(b){ VIS.tema=b.dataset.tema; saveVis(); } });
   $('pUrso').onchange=()=>{ VIS.urso=$('pUrso').value==='1'; saveVis(); $('brandBear').innerHTML=bear('ok'); $('light').dataset.mood=''; render(); };
   $('pQuem').onchange=()=>{ VIS.quem=$('pQuem').value; saveVis(); };
@@ -1183,14 +1195,17 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
       if(!ativo){ const d=JSON.parse(localStorage.getItem('meu-dinheiro-dados-v1')||'null');
         if(d && ['cartoes','fixas','gastos','ajudas'].some(k=>d[k]&&Object.keys(d[k]).length) || (d&&d.config&&d.config.main)){ ativo=true; localStorage.setItem('md-ativo','1'); } }
     }catch(e){ ativo=true; }
-    if(ativo) return;
+    // Link de ativação: ...netlify.app/?codigo=MD-XXXX-XXXX (para enviar pela Hotmart/Kiwify)
+    let viaLink=null; try{ viaLink=new URLSearchParams(location.search).get('codigo'); }catch(e){}
+    if(ativo){ if(viaLink){ try{ history.replaceState(null,'',location.pathname+location.hash); }catch(e){} } return; }
     $('gate').hidden=false; $('gateBear').innerHTML=bear('none');
     $('gateForm').onsubmit=async e=>{ e.preventDefault();
       const c=normCode($('gateCode').value); $('gateMsg').textContent='';
       let ok=false; try{ ok = c.length>=10 && CODIGOS.has(await hashCode(c)); }catch(err){}
-      if(ok){ try{ localStorage.setItem('md-ativo','1'); localStorage.setItem('md-codigo',c); }catch(err){} $('gateBear').innerHTML=bear('ok'); $('gateMsg').style.color='var(--ok)'; $('gateMsg').textContent='Ativado! Bem-vinda 💕'; setTimeout(()=>{ $('gate').hidden=true; },900); }
+      if(ok){ try{ localStorage.setItem('md-ativo','1'); localStorage.setItem('md-codigo',c); }catch(err){} $('gateBear').innerHTML=bear('ok'); $('gateMsg').style.color='var(--ok)'; $('gateMsg').textContent='Ativado! Tudo pronto 🎉'; setTimeout(()=>{ $('gate').hidden=true; },900); }
       else { $('gateBear').innerHTML=bear('stop'); $('gateMsg').style.color=''; $('gateMsg').textContent='Código não encontrado. Confira e tente de novo.'; }
     };
+    if(viaLink){ $('gateCode').value=viaLink; try{ history.replaceState(null,'',location.pathname+location.hash); }catch(e){} setTimeout(()=>$('gateForm').requestSubmit(),300); }
   })();
 
   // ---------- Início ----------
