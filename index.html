@@ -46,6 +46,32 @@ img{max-width:100%}
   --seg-fixas:#A88774; --seg-faturas:#C4A0F5; --seg-reserva:#F7D06A; --seg-livre:#86DBA6;
   --bear:#C98E63; --bear-in:#F6DCC4; --blush:#FF9FB2; --sticker:#4A363C; --c-fixa:#D9607E; --c-cartao:#9A72DC;
   --shadow:0 3px 0 rgba(0,0,0,.35),0 8px 18px rgba(0,0,0,.25); color-scheme:dark}
+/* Temas de cor (Personalizar) */
+:root[data-tema="lilas"]{--bg:#E3D7FB;--dots:#D5C5F7;--accent:#7C4DDB;--accent-soft:#F1EAFE}
+:root[data-tema="menta"]{--bg:#CDEFE0;--dots:#B8E6D2;--accent:#1F8A62;--accent-soft:#E3F6EE}
+:root[data-tema="ceu"]{--bg:#CFE4FA;--dots:#BCD8F7;--accent:#2F6FC4;--accent-soft:#E4F0FD}
+:root[data-tema="areia"]{--bg:#EFE6DA;--dots:#E5D8C7;--accent:#A0603F;--accent-soft:#F7EFE6}
+@media (prefers-color-scheme:dark){
+  :root[data-tema="lilas"]:not([data-theme="light"]){--bg:#231D2E;--dots:#2C2539;--surface:#2F2840;--sticker:#3D3452;--line:#463C5C;--accent:#B79CFF;--accent-soft:#3A3050}
+  :root[data-tema="menta"]:not([data-theme="light"]){--bg:#1A2925;--dots:#21332E;--surface:#22332E;--sticker:#2D433C;--line:#355048;--accent:#6FD3A8;--accent-soft:#2A423A}
+  :root[data-tema="ceu"]:not([data-theme="light"]){--bg:#1A2230;--dots:#212B3C;--surface:#222C3D;--sticker:#2D3A50;--line:#36455E;--accent:#8EC1FF;--accent-soft:#2A3A53}
+  :root[data-tema="areia"]:not([data-theme="light"]){--bg:#2A241F;--dots:#332C26;--surface:#352E28;--sticker:#463C34;--line:#4F443B;--accent:#E0A985;--accent-soft:#45392F}
+}
+.swatches{display:flex;gap:10px;flex-wrap:wrap}
+.swatch{width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;border:3px solid var(--sticker);box-shadow:var(--shadow)}
+.swatch[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+.pers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pers-grid .full{grid-column:1/-1}
+/* Ativação */
+.gate{position:fixed;inset:0;z-index:50;background-color:var(--bg);background-image:radial-gradient(var(--dots) 2px,transparent 2.5px);background-size:22px 22px;display:grid;place-items:center;padding:20px;overflow:auto}
+.gate-card{max-width:400px;width:100%;background:var(--surface);border:4px solid var(--sticker);border-radius:28px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center}
+.gate-card .light{width:110px;height:110px}
+.gate-card h2{font-size:1.6rem;color:var(--accent)}
+.gate-card p{margin:0;font-weight:600}
+.gate-card form{width:100%;display:flex;flex-direction:column;gap:10px}
+.gate-card input{text-align:center;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.gate-msg{min-height:1.4em;font-weight:800;color:var(--stop)}
+.gate-card a{color:var(--accent);font-weight:800}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 body{background-color:var(--bg);background-image:radial-gradient(var(--dots) 2px,transparent 2.5px);background-size:22px 22px;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
@@ -394,7 +420,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
   <main class="tab" id="tab-simular" data-tab="simular" hidden>
     <section class="panel">
       <div class="panel-head"><h2>Posso comprar?</h2></div>
-      <p class="small muted" style="margin:-6px 0 10px">Digite o valor antes de passar o cartão. O ursinho olha a fatura do mês escolhido lá em cima e os meses seguintes.</p>
+      <p class="small muted" style="margin:-6px 0 10px">Digite o valor antes de passar o cartão. O app olha a fatura do mês escolhido lá em cima e os meses seguintes.</p>
       <form class="inline" id="formSim">
         <label>Valor da compra<input id="sValor" inputmode="decimal" placeholder="250,00" required></label>
         <label>Parcelas<input id="sParc" type="number" min="1" max="24" value="1"></label>
@@ -461,6 +487,23 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
         <div class="row"><button type="submit">Adicionar</button></div>
       </form>
     </section>
+    <section class="panel" id="persPanel">
+      <div class="panel-head"><h2>Personalizar</h2></div>
+      <p class="small muted" style="margin:-6px 0 12px">Deixe o app com a sua cara. Muda só neste celular.</p>
+      <div class="pers-grid">
+        <label class="full">Nome do app<input id="pNome" maxlength="24" placeholder="Meu Dinheiro"></label>
+        <div class="full"><div class="label" style="margin-bottom:6px">Cor do app</div>
+          <div class="swatches" id="pTemas">
+            <button type="button" class="swatch" data-tema="rosa" aria-label="Rosa" style="background:#F2718F"></button>
+            <button type="button" class="swatch" data-tema="lilas" aria-label="Lilás" style="background:#7C4DDB"></button>
+            <button type="button" class="swatch" data-tema="menta" aria-label="Verde menta" style="background:#1F8A62"></button>
+            <button type="button" class="swatch" data-tema="ceu" aria-label="Azul" style="background:#2F6FC4"></button>
+            <button type="button" class="swatch" data-tema="areia" aria-label="Areia" style="background:#A0603F"></button>
+          </div></div>
+        <label>Mascote<select id="pUrso"><option value="1">Ursinho</option><option value="0">Sem mascote</option></select></label>
+        <label>Quem costuma te ajudar<select id="pQuem"><option value="esposo">Esposo</option><option value="namorado">Namorado</option><option value="noivo">Noivo</option><option value="pai">Pai</option><option value="outra">Outra renda</option></select></label>
+      </div>
+    </section>
     <section class="panel">
       <div class="panel-head"><h2>Backup</h2></div>
       <p class="small muted" style="margin:-6px 0 10px">Seus dados ficam só neste celular. Faça um backup de vez em quando e guarde no WhatsApp ou no Google Drive. Se trocar de celular, é só restaurar.</p>
@@ -479,6 +522,19 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
   <div id="tip" hidden></div>
 </div>
 
+<div class="gate" id="gate" hidden>
+  <div class="gate-card">
+    <div class="light" id="gateBear" aria-hidden="true"></div>
+    <h2>Bem-vinda ao Meu Dinheiro!</h2>
+    <p>Digite o código de ativação que você recebeu na compra.</p>
+    <form id="gateForm">
+      <input id="gateCode" autocomplete="off" autocapitalize="characters" placeholder="MD-XXXX-XXXX" aria-label="Código de ativação" required>
+      <button class="primary" type="submit">Ativar</button>
+    </form>
+    <div class="gate-msg" id="gateMsg" aria-live="polite"></div>
+    <p class="small muted">Ainda não tem o seu? <a href="conheca.html">Conheça e compre aqui</a></p>
+  </div>
+</div>
 <nav class="tabbar" role="tablist" aria-label="Menu"><div class="tabbar-in">
   <button type="button" role="tab" data-go="inicio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.5 12 5l8 6.5V20a1 1 0 0 1-1 1h-4.5v-5.5h-5V21H5a1 1 0 0 1-1-1z"/></svg><span>Início</span></button>
   <button type="button" role="tab" data-go="cartoes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10.5h18M7 15h4"/></svg><span>Cartões</span></button>
@@ -505,12 +561,38 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
   const mShort = k => MES_CURTO[Number(k.split('-')[1])-1];
   const mFull = k => mName(k)+' de '+k.split('-')[0];
   const THIS = ym(now);
-  const INICIO = '2026-10'; // primeiro mês controlado no app
+  // Primeiro mês de cada pessoa: o mês em que ela abriu o app pela primeira vez
+  let INICIO = THIS;
+  try{
+    INICIO = localStorage.getItem('md-inicio');
+    if(!INICIO || !/^\d{4}-\d{2}$/.test(INICIO)){
+      INICIO = localStorage.getItem('meu-dinheiro-dados-v1') ? (THIS < '2026-10' ? THIS : '2026-10') : THIS;
+      localStorage.setItem('md-inicio', INICIO);
+    }
+  }catch(e){ INICIO = THIS; }
   const BASE = THIS > INICIO ? THIS : INICIO;
   const short=v=> Math.abs(v)>=1000 ? (Math.round(v/100)/10).toLocaleString('pt-BR')+' mil' : Math.round(v).toLocaleString('pt-BR');
   $('mes').textContent = 'Hoje: '+now.getDate()+' de '+MESES[now.getMonth()];
 
+
+  // ---------- Personalizar (fica salvo só neste celular) ----------
+  const VIS = {nome:'Meu Dinheiro', tema:'rosa', urso:true, quem:'esposo'};
+  try{ Object.assign(VIS, JSON.parse(localStorage.getItem('md-visual')||'{}')); }catch(e){}
+  const TEMA_COR={rosa:'#FFD1D8',lilas:'#E3D7FB',menta:'#CDEFE0',ceu:'#CFE4FA',areia:'#EFE6DA'};
+  function applyVis(){
+    const nome=(VIS.nome||'').trim()||'Meu Dinheiro';
+    document.querySelector('header h1').textContent=nome; document.title=nome;
+    const g=document.querySelector('.gate-card h2'); if(g) g.textContent='Bem-vinda ao '+nome+'!';
+    if(VIS.tema && VIS.tema!=='rosa') document.documentElement.dataset.tema=VIS.tema; else delete document.documentElement.dataset.tema;
+    const mt=document.querySelector('meta[name="theme-color"]'); if(mt) mt.content=TEMA_COR[VIS.tema]||TEMA_COR.rosa;
+    document.querySelectorAll('#pTemas [data-tema]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.tema===(VIS.tema||'rosa')));
+    if(document.activeElement!==$('pNome')) $('pNome').value = VIS.nome==='Meu Dinheiro'?'':(VIS.nome||'');
+    $('pUrso').value=VIS.urso?'1':'0'; $('pQuem').value=VIS.quem||'esposo';
+  }
+  function saveVis(){ try{ localStorage.setItem('md-visual',JSON.stringify(VIS)); }catch(e){} applyVis(); }
+
   function bear(mood){
+    if(!VIS.urso) return simpleFace(mood);
     const mouth = {ok:'<path d="M43 62 Q50 70 57 62" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
       warn:'<path d="M44 64 H56" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
       stop:'<path d="M43 67 Q50 60 57 67" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
@@ -530,6 +612,17 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
       <ellipse cx="28" cy="60" rx="6" ry="4" fill="var(--blush)" opacity=".8"/><ellipse cx="72" cy="60" rx="6" ry="4" fill="var(--blush)" opacity=".8"/>
       ${eyes}${mouth}${extra}</svg>`;
   }
+
+  function simpleFace(mood){
+    const c={ok:'var(--ok)',warn:'var(--warn)',stop:'var(--stop)',none:'var(--accent)',love:'var(--accent)'}[mood]||'var(--accent)';
+    const ic={ok:'<path d="M32 51 L45 64 L69 38" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>',
+      warn:'<path d="M50 30 V56" stroke="#fff" stroke-width="9" stroke-linecap="round"/><circle cx="50" cy="71" r="5.5" fill="#fff"/>',
+      stop:'<path d="M36 36 L64 64 M64 36 L36 64" stroke="#fff" stroke-width="9" stroke-linecap="round"/>',
+      none:'<path d="M50 32 V68 M32 50 H68" stroke="#fff" stroke-width="9" stroke-linecap="round"/>',
+      love:'<path transform="translate(26 30) scale(4.8)" d="M0 3C0-1 5-1 5 3 5-1 10-1 10 3 10 7 5 10 5 11 5 10 0 7 0 3z" fill="#fff"/>'}[mood]||'';
+    return `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="42" fill="${c}" stroke="var(--sticker)" stroke-width="5"/>${ic}</svg>`;
+  }
+  applyVis();
   $('brandBear').innerHTML = bear('ok');
 
   const state = { cfg:{}, cartoes:[], fixas:[], gastos:[], ajudas:[], ready:{cfg:false,cartoes:false,fixas:false,gastos:false,ajudas:false} };
@@ -572,7 +665,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
     state.cartoes.forEach(c=>Object.keys(c.faturas||{}).forEach(k=>set.add(k)));
     state.ajudas.forEach(a=>{ if(a.mes) set.add(a.mes); });
     set.add(sel);
-    const min = addM(THIS,-12) > INICIO ? addM(THIS,-12) : INICIO;
+    const min = addM(THIS,-12);
     return [...set].filter(k=>k>=min).sort();
   }
   function installmentsIn(key){
@@ -920,7 +1013,11 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
     first.querySelectorAll('form').forEach(x=>x.hidden = x!==f);
     first.scrollIntoView({block:'start'}); setTimeout(()=>f.querySelector('input').focus({preventScroll:true}),50);
   };
-  const openMarido=()=>{ $('maridoPanel').hidden=false; $('mMes').value=sel; $('maridoPanel').scrollIntoView({block:'center',behavior:'smooth'}); setTimeout(()=>$('mValor').focus({preventScroll:true}),300); };
+  $('pNome').addEventListener('input',()=>{ VIS.nome=$('pNome').value.trim()||'Meu Dinheiro'; saveVis(); });
+  $('pTemas').addEventListener('click',e=>{ const b=e.target.closest('[data-tema]'); if(b){ VIS.tema=b.dataset.tema; saveVis(); } });
+  $('pUrso').onchange=()=>{ VIS.urso=$('pUrso').value==='1'; saveVis(); $('brandBear').innerHTML=bear('ok'); $('light').dataset.mood=''; render(); };
+  $('pQuem').onchange=()=>{ VIS.quem=$('pQuem').value; saveVis(); };
+  const openMarido=()=>{ $('mQuem').value=VIS.quem||'esposo'; $('maridoPanel').hidden=false; $('mMes').value=sel; $('maridoPanel').scrollIntoView({block:'center',behavior:'smooth'}); setTimeout(()=>$('mValor').focus({preventScroll:true}),300); };
   $('heroMarido').onclick=openMarido; $('rcMarido').onclick=openMarido;
   document.addEventListener('click',e=>{ const c=e.target.closest('[data-cancel]'); if(c){ $(c.dataset.cancel).hidden=true; } });
 
@@ -1070,6 +1167,31 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
   document.addEventListener('pointermove',e=>{ const el=e.target.closest&&e.target.closest('[data-tip]');
     if(!el||e.pointerType==='touch'){ tip.hidden=true; return; } tip.textContent=el.dataset.tip; tip.hidden=false;
     const w=tip.offsetWidth, x=Math.min(e.clientX+14, window.innerWidth-w-8); tip.style.left=Math.max(8,x)+'px'; tip.style.top=(e.clientY+16)+'px'; });
+
+
+  // ---------- Ativação ----------
+  const CODIGOS = new Set(["2750af0db639183e", "e6e838b2963b92d0", "8fe7156b9a2c78b2", "4b848209a6bca64c", "278a74acfb66e2dd", "51735b37ca4d3ee2", "73b7d27fe9846c91", "6e7efb44611c88c2", "570724f1704c4d7a", "f37b86122e38b4fe", "99dc664e7f432dd7", "05b2e2ee938691cd", "20297fbd4252565c", "bf83a07971075e94", "70a0e090b6f08545", "8c19b58fb291f17d", "6984c312c0fe65f2", "5723e44932d96c9b", "d4907bb91028d147", "cc1fe1b640e43b2c", "64fe5abb0e7353a9", "8f1f02841d355645", "220e720ac840abc6", "40e9f9c93506e06e", "c466c3ef6a2bdb07", "1e7f2487919b9029", "4b16c6b9f58242a0", "f573261e89ac3127", "81aa20eef33155b0", "fcc67093981f094b", "b20d11b52f821c6e", "c1975548dcd75bc2", "72e1ecce73b2a180", "882ec46a80a1d9ff", "004a47367238b40f", "62fe095189693868", "f563ec723bf9fc66", "365da4c775b43446", "ee6597dbb8d544c3", "0d5af781ffb8c5c8", "f6edf651f5c364ec", "d688bad538c24abb", "38aed92627092c52", "22ad4a0ab85ccc1b", "6058b27fd9532fcf", "667014966a35ee17", "0b0b386246dc2d0f", "249fa1c773ecb36b", "a80f3f2d3f68b315", "1762f1af64f649b6", "3e9c9a27de443e9b", "8cffc78506426dfd", "21138d94257a2243", "1f83b93fa6c8e50d", "864ff616cc643d30", "1adc9714ac73c61e", "7f05ebbf9f426e5a", "9e597a1ec1d3da67", "3edd0878311f0df0", "a2e628854cc37f2b", "cb46768ebb750fcb", "359e3c6fc5244e46", "381b27cff200cf7b", "fc39d876a7939a31", "4ec3b62b6dc4d711", "6d15c8e0f0f9b655", "840068498a3572d0", "777be084a7e69a03", "efba6f2cf94c6a97", "81652676e1097177", "f6dabd9c7726d62b", "62a5552c24d44349", "e29fcdca470035f8", "5465c72b81964bd6", "672dd81d586fd3ca", "12195246a45550a7", "f44b07b9c336ba61", "de3551f97e187d84", "5de5db2215232a0a", "2033879dd912b4af", "a759f9038168b0cb", "17cb3e9605b6c1dc", "447072b8e72eb77c", "32c62edc4740629d", "ed1db0e243415c01", "40341b9b665d53e7", "0782f6dd385a6922", "b2624408aad9f7cd", "d1974ad15f91b97f", "f3bc2bb31210158c", "69b7f7cb32fa0086", "4d3a29ecf444f7a6", "23ff53b67e4d3836", "10b7f4db5149c8d2", "0672127487c0b561", "177bf8bceca37b4f", "9a70b2cccbefc58c", "22ec03408d92bf20", "d4a781cbd7917f3e", "a08b9349e498bc66", "108110cbe4e6635c", "9f61619b42b8b209", "9950a922674e8e1e", "92f461dfd82ceb75", "5d53cef7995db148", "b93b038054e7ca94", "d1e4949b75dca100", "f58e928b70ff4f97", "0b8dc2a7a59619cd", "a544e5616e41792a", "77f5896999ed4d4f", "8a2efcff5a871b77", "d863e70abd24c3e2", "752f4a6bddb2deb0", "53d63cf388c644ad", "833c03039b512bb3", "2bed2722c6699392", "945830aad477a7f8", "c5fbbf1a491a69a2", "ec79c0240c29668a", "58492f6beb5e8c4e", "e508c85fec715ea6", "4a13caf90c4a9281", "66b466850228efeb", "5dc9c116ec2a0274", "07b72f13ce036803", "0e1b05e27942fdf1", "69c5332611e7d5cc", "9e2a91041cc0a653", "9efdc95ce14850ad", "67a2e841987817d4", "26fefd5295589ac9", "c6892de4e354977a", "77e8892ade06bcd6", "7e7a906a23498b14", "8b84882cfc37e063", "5061477e8d5aec9f", "8ec136683ee117de", "0c868dc134c1c5e1", "eb7e161342e144fc", "93f022c2506b41bb", "1eda03db2b035250", "eb0e8030d0e617ef", "7ba283d3cbb3df6e", "9c8c443df401b7d4", "6c5e400e6c29980d", "b3e3405fb4bd2ecd", "72bfc08320b00052", "0c7874218880777a", "3881a1a987fdc226", "06f04abd5abe0b7b", "2613544dd8c1a3d7", "6685646cc498b4bf", "be4adc39448396e1", "823b389cf4060f7f", "938ffd5ef9ab0b86", "96fe3002c201078e", "b8e9a1c0ed8b51e3", "1ef8bc5837221391", "9fab369fc5b6478f", "b61b45b44c71d1c0", "1da3848d5f08cbb3", "5d371cb6d8cdec5a", "992a21ef66793d67", "1259d64a4f7d451b", "1346f77eba49ef0f", "22034e7730e4a03e", "436673abb8c80385", "7cb2f407f3643db2", "0037e83ce2b177e0", "9f4b58d1b0af0608", "90b37d73476acf9e", "e17c4dea7d12c889", "67f07916689e457b", "6a7dd90a5ccac51b", "038f7a802ae14a3b", "6bf0174e7a338925", "1b4111d1ef819dbe", "fd5a650515ceac6e", "c939b5d1735159d4", "3446ee6adf7133f9", "fbfc101ce5ea6ea9", "de2ea9de77625402", "495da542ef37fba4", "b6fd5b94a9f24e81", "fcadd3d40b03a35d", "145f2a8501656e9a", "e8f5330bd5ef119d", "1f36d324d005543c", "7d8c99eef1a0e96b", "0ceccafbcfe7e43e", "af025da7cedbfc6a", "f24bc688e88bdeab", "615bbfcd5affd38a", "1133e669b20252c3", "d32a73e3c1a3b9f6", "9e2686e1d572dcd8", "4b3254e79c94a39e", "d7c613c5399f4686", "db0314542cee4c5b", "1d4e207435d19e0c", "b36a716066fb60d5", "d5f6aa4d53abb184", "461d6070a9639fac", "a0b7562055c9f90b", "40a696319d753f84", "4152daeadc8bffb8", "35801f028d02d711", "59b862dd44ec5a2d", "4915ee8935b57d08", "1e25f0d0d7c49c7a", "23f0134f067f7f36", "2c9058ffa1aafe7b", "74b8cf8d3327f2b7", "5f6c948b8ebb3a2f", "0064027d347a7bed", "e1a32bac9967d567", "7b34d02b3104f717", "8b224e30cbe259e2", "8bc35f97598b2252", "7feba9c9ce24a161", "d7e8a09c5f16e20e", "b834a7f22b05fef2", "39f9c3fb70e3a2ce", "a086c44cfa9b6b13", "0442467abdd77c10", "9029e245c029819a", "bb17ebede2f7ec0a", "cdf0cbd35c76db70", "899b51513edac81f", "ff3890792b1a62e0", "ae4a6ae9b17fe79d", "995ef2cb2b1a1319", "7a6313ea8396409f", "d8d3c96020c310a1", "98c17801e95537a3", "b5f44578f7ca65f3", "f041a100dc656cc9", "b57a1d1f50377b9b", "be2bbb61da643b79", "ce5475de7af7e7db", "24cdcee094145e5c", "c94b948d3ac5cff2", "cc345c5ce7b55f37", "128d923e7826da95", "181c16721e4ed1f4", "3ab83d5e65157ef7", "e2f51a23ce172ae7", "fd54169106da8167", "7872261de3381583", "da229bb6fea10617", "cf6249e6c2618483", "d3a434ac70eadfbc", "f9a44c7d0a5d1bd3", "b25f34b9523edb08", "af31435cddf4dafb", "73f8f29a4ffbfa89", "ccdd98131ac138dc", "18a633c5a588ccab", "778bf687b9c64a2f", "95fa16245f036400", "3bc47ef6593ea874", "8543ec958494767a", "8e29b855adb8d9b3", "24565c9d4a603ba5", "a7160ab05ce7e96e", "95bcf60fac4d8171", "ebc97a07a05409b7", "baabd3770909d4cc", "290924fa148dda25", "910ad648bd2bea41", "16b05d929a37df2f", "9a31bc2d1f8d60a4", "b43986cd4e867b17", "352f5bbe630e068c", "513a997b9cf4a488", "095fa5f397d9ae35", "39c24447a07c71c0", "308a64ab7f956ca8", "5bd07f276e954149", "0dabea7e13c1a05a", "95edaa58a2911809", "8155992239f9aee7", "3920fba2a19e4162", "453bf9207aadf548", "c361a4e9ba268344", "5a240e8cfb5222a1", "60cb21c67afcad91", "234df39d7a52fd31", "f1a49858a6497248", "56b0e3ee0efe0a30", "1de702cb1339f357", "8192281cdcb28e40", "41862b5ff51f8966", "2138857e3bb4dc7e", "3dac73485c97b852", "1d927231886f8b3b", "f159c73b806390bc", "b705ad51ce4d1538", "4d0d56e2f5f14d1c"]);
+  const normCode = v => String(v||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  async function hashCode(c){
+    const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode('meu-dinheiro:'+c));
+    return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,16);
+  }
+  (function(){
+    let ativo=false;
+    try{
+      ativo = localStorage.getItem('md-ativo')==='1';
+      if(!ativo){ const d=JSON.parse(localStorage.getItem('meu-dinheiro-dados-v1')||'null');
+        if(d && ['cartoes','fixas','gastos','ajudas'].some(k=>d[k]&&Object.keys(d[k]).length) || (d&&d.config&&d.config.main)){ ativo=true; localStorage.setItem('md-ativo','1'); } }
+    }catch(e){ ativo=true; }
+    if(ativo) return;
+    $('gate').hidden=false; $('gateBear').innerHTML=bear('none');
+    $('gateForm').onsubmit=async e=>{ e.preventDefault();
+      const c=normCode($('gateCode').value); $('gateMsg').textContent='';
+      let ok=false; try{ ok = c.length>=10 && CODIGOS.has(await hashCode(c)); }catch(err){}
+      if(ok){ try{ localStorage.setItem('md-ativo','1'); localStorage.setItem('md-codigo',c); }catch(err){} $('gateBear').innerHTML=bear('ok'); $('gateMsg').style.color='var(--ok)'; $('gateMsg').textContent='Ativado! Bem-vinda 💕'; setTimeout(()=>{ $('gate').hidden=true; },900); }
+      else { $('gateBear').innerHTML=bear('stop'); $('gateMsg').style.color=''; $('gateMsg').textContent='Código não encontrado. Confira e tente de novo.'; }
+    };
+  })();
 
   // ---------- Início ----------
   let startTab=(location.hash||'').slice(1);
