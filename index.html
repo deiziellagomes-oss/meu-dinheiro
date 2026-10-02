@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#FFD1D8">
+<meta name="theme-color" content="#CDEFE0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu Dinheiro">
@@ -19,7 +19,7 @@ html{-webkit-text-size-adjust:100%}
 :root{padding-top:env(safe-area-inset-top,0px)}
 body{margin:0}
 img{max-width:100%}
-/* Layout: coluna única estilo caderno de adesivos — ursinho-semáforo no topo, cartões como adesivos, simulador, contas, histórico */
+/* Layout: coluna única estilo caderno de adesivos — moedinha-semáforo no topo, cartões como adesivos, simulador, contas, histórico */
 :root{
   --bg:#FFD1D8; --dots:#FFBFCA; --surface:#FFFBF7; --ink:#5B3A2E; --muted:#9A7466; --line:#F3D9D3;
   --accent:#F2718F; --accent-soft:#FFE6EC;
@@ -499,7 +499,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
             <button type="button" class="swatch" data-tema="lilas" aria-label="Lilás" style="background:#7C4DDB"></button>
             <button type="button" class="swatch" data-tema="rosa" aria-label="Rosa" style="background:#F2718F"></button>
           </div></div>
-        <label>Mascote<select id="pUrso"><option value="1">Ursinho</option><option value="0">Sem mascote</option></select></label>
+        <label>Mascote<select id="pUrso"><option value="1">Moedinha</option><option value="0">Sem mascote</option></select></label>
         <label>Quem costuma te ajudar<select id="pQuem"><option value="esposo">Esposo</option><option value="esposa">Esposa</option><option value="namorado">Namorado</option><option value="namorada">Namorada</option><option value="noivo">Noivo</option><option value="noiva">Noiva</option><option value="pai">Pai</option><option value="mae">Mãe</option><option value="familia">Família</option><option value="outra">Outra renda</option></select></label>
       </div>
     </section>
@@ -524,7 +524,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
 <div class="gate" id="gate" hidden>
   <div class="gate-card">
     <div class="light" id="gateBear" aria-hidden="true"></div>
-    <h2>Boas-vindas ao Meu Dinheiro!</h2>
+    <h2>Bem-vinda(o) ao Meu Dinheiro!</h2>
     <p>Digite o código de ativação que você recebeu na compra.</p>
     <form id="gateForm">
       <input id="gateCode" autocomplete="off" autocapitalize="characters" placeholder="MD-XXXX-XXXX" aria-label="Código de ativação" required>
@@ -592,7 +592,7 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
   function applyVis(){
     const nome=(VIS.nome||'').trim()||'Meu Dinheiro';
     document.querySelector('header h1').textContent=nome; document.title=nome;
-    const g=document.querySelector('.gate-card h2'); if(g) g.textContent='Boas-vindas ao '+nome+'!';
+    const g=document.querySelector('.gate-card h2'); if(g) g.textContent='Bem-vinda(o) ao '+nome+'!';
     if(VIS.tema && VIS.tema!=='rosa') document.documentElement.dataset.tema=VIS.tema; else delete document.documentElement.dataset.tema;
     const mt=document.querySelector('meta[name="theme-color"]'); if(mt) mt.content=TEMA_COR[VIS.tema]||TEMA_COR.rosa;
     document.querySelectorAll('#pTemas [data-tema], #gateTemas [data-tema]').forEach(b=>b.setAttribute('aria-pressed', b.dataset.tema===(VIS.tema||'rosa')));
@@ -601,25 +601,27 @@ input[type="color"]{padding:4px;height:44px;cursor:pointer}
   }
   function saveVis(){ try{ localStorage.setItem('md-visual',JSON.stringify(VIS)); }catch(e){} applyVis(); }
 
+  // Mascote: Moedinha
   function bear(mood){
     if(!VIS.urso) return simpleFace(mood);
-    const mouth = {ok:'<path d="M43 62 Q50 70 57 62" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
-      warn:'<path d="M44 64 H56" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
-      stop:'<path d="M43 67 Q50 60 57 67" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
-      none:'<path d="M45 63 Q50 67 55 63" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>',
-      love:'<path d="M43 62 Q50 70 57 62" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>'}[mood];
-    const heart = (x,y,s)=>`<path transform="translate(${x} ${y}) scale(${s})" d="M0 3C0-1 5-1 5 3 5-1 10-1 10 3 10 7 5 10 5 11 5 10 0 7 0 3z" fill="#F2718F"/>`;
-    const eyes = mood==='ok' ? '<path d="M33 49 Q37 44 41 49 M59 49 Q63 44 67 49" fill="none" stroke="#5B3A2E" stroke-width="3" stroke-linecap="round"/>'
-      : mood==='love' ? heart(31,43,1.2)+heart(57,43,1.2)
-      : '<circle cx="37" cy="49" r="4" fill="#5B3A2E"/><circle cx="63" cy="49" r="4" fill="#5B3A2E"/><circle cx="38.3" cy="47.6" r="1.3" fill="#fff"/><circle cx="64.3" cy="47.6" r="1.3" fill="#fff"/>';
-    const extra = mood==='stop' ? '<path d="M72 34 q4 8 0 11 q-4-3 0-11z" fill="#8FD3F4"/>' : mood==='warn' ? '<path d="M28 38 L36 41 M72 38 L64 41" stroke="#5B3A2E" stroke-width="2.5" stroke-linecap="round"/>' : mood==='ok' ? '<path d="M80 18 l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#F7C948"/>' : mood==='love' ? heart(78,8,1.4)+heart(6,4,1) : '';
-    return `<svg viewBox="0 0 100 100"><g stroke="#fff" stroke-width="5" paint-order="stroke">
-      <circle cx="24" cy="26" r="13" fill="var(--bear)"/><circle cx="76" cy="26" r="13" fill="var(--bear)"/>
-      <circle cx="50" cy="55" r="36" fill="var(--bear)"/></g>
-      <circle cx="24" cy="26" r="7" fill="var(--bear-in)"/><circle cx="76" cy="26" r="7" fill="var(--bear-in)"/>
-      <ellipse cx="50" cy="62" rx="15" ry="11" fill="var(--bear-in)"/>
-      <ellipse cx="50" cy="56" rx="5" ry="3.6" fill="#5B3A2E"/>
-      <ellipse cx="28" cy="60" rx="6" ry="4" fill="var(--blush)" opacity=".8"/><ellipse cx="72" cy="60" rx="6" ry="4" fill="var(--blush)" opacity=".8"/>
+    const I='#2B3A36';
+    const heart=(x,y,sc)=>`<path transform="translate(${x} ${y}) scale(${sc})" d="M0 3C0-1 5-1 5 3 5-1 10-1 10 3 10 7 5 10 5 11 5 10 0 7 0 3z" fill="#E5484D"/>`;
+    const eyes = mood==='ok' ? `<path d="M36 53 Q40 48 44 53 M56 53 Q60 48 64 53" fill="none" stroke="${I}" stroke-width="3.2" stroke-linecap="round"/>`
+      : mood==='love' ? heart(34,47,1.1)+heart(55,47,1.1)
+      : `<circle cx="40" cy="52" r="3.8" fill="${I}"/><circle cx="60" cy="52" r="3.8" fill="${I}"/><circle cx="41.2" cy="50.7" r="1.2" fill="#fff"/><circle cx="61.2" cy="50.7" r="1.2" fill="#fff"/>`;
+    const mouth = {ok:`<path d="M42 64 Q50 72 58 64" fill="none" stroke="${I}" stroke-width="3.2" stroke-linecap="round"/>`,
+      love:`<path d="M42 64 Q50 72 58 64" fill="none" stroke="${I}" stroke-width="3.2" stroke-linecap="round"/>`,
+      none:`<path d="M44 65 Q50 69 56 65" fill="none" stroke="${I}" stroke-width="3.2" stroke-linecap="round"/>`,
+      warn:`<path d="M44 66 H56" stroke="${I}" stroke-width="3.2" stroke-linecap="round"/>`,
+      stop:`<path d="M42 70 Q50 62 58 70" fill="none" stroke="${I}" stroke-width="3.2" stroke-linecap="round"/>`}[mood]||'';
+    const extra = mood==='stop' ? '<path d="M77 30 q4 8 0 11 q-4-3 0-11z" fill="#7CC7EE"/>'
+      : mood==='warn' ? `<path d="M33 43 L41 45 M67 43 L59 45" stroke="${I}" stroke-width="2.6" stroke-linecap="round"/>`
+      : mood==='ok' ? '<path d="M82 16 l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#fff" stroke="#F2C14E" stroke-width="1.5"/>'
+      : mood==='love' ? heart(78,10,1.3) : '';
+    return `<svg viewBox="0 0 100 100"><circle cx="50" cy="54" r="38" fill="#F2C14E" stroke="var(--sticker)" stroke-width="5"/>
+      <circle cx="50" cy="54" r="30" fill="none" stroke="#D9A433" stroke-width="3"/>
+      <ellipse cx="34" cy="62" rx="5" ry="3.4" fill="#F29E6B" opacity=".55"/><ellipse cx="66" cy="62" rx="5" ry="3.4" fill="#F29E6B" opacity=".55"/>
+      <text x="50" y="41" text-anchor="middle" font-family="Baloo 2,Arial Black,Arial" font-weight="800" font-size="13" fill="#B88420">R$</text>
       ${eyes}${mouth}${extra}</svg>`;
   }
 

@@ -1,17 +1,32 @@
 {
   "name": "Meu Dinheiro",
   "short_name": "Meu Dinheiro",
-  "description": "Minhas contas, faturas e o ursinho que avisa quando não dá mais para comprar.",
+  "description": "Seus cartões, contas e faturas no celular. A Moedinha avisa quando ainda dá para comprar.",
   "lang": "pt-BR",
   "start_url": "./#inicio",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FFD1D8",
-  "theme_color": "#FFD1D8",
+  "background_color": "#CDEFE0",
+  "theme_color": "#CDEFE0",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
