@@ -179,7 +179,7 @@ footer{text-align:center;padding:30px 16px 50px;color:var(--muted);font-weight:7
   <div class="wrap">
     <div class="sec-head"><h2>Começa em 3 passos</h2></div>
     <div class="steps">
-      <div class="card"><h3>Compre</h3><p>Você recebe o link do app e o seu código de ativação.</p></div>
+      <div class="card"><h3>Compre</h3><p>Pague por Pix, cartão ou boleto. O link de ativação chega no seu e-mail na hora.</p></div>
       <div class="card"><h3>Ative no celular</h3><p>Abra o link, digite o código e toque em "Adicionar à tela inicial". Ele vira um ícone, igual a um app.</p></div>
       <div class="card"><h3>Coloque suas contas</h3><p>Salário, contas fixas e faturas. Em 5 minutos a Moedinha já mostra como está o seu mês.</p></div>
     </div>
@@ -225,7 +225,7 @@ footer{text-align:center;padding:30px 16px 50px;color:var(--muted);font-weight:7
 const WHATSAPP = '5533999023692';
 const PRECO = 'R$ 29,90';
 // Link do checkout da Hotmart ou Kiwify. Deixe vazio ('') para vender pelo WhatsApp.
-const CHECKOUT = '';
+const CHECKOUT = 'https://pay.kiwify.com.br/6SbyvKe';
 document.getElementById('preco-valor').textContent = PRECO;
 const btn = document.getElementById('btn-comprar'), fine = document.querySelector('.price .fine');
 if (CHECKOUT) {
